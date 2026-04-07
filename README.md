@@ -5,13 +5,19 @@
 
 ---
 
-This API is currently hosted on a free cyclic server, please host it on your own server for prodcution use
+This API is currently hosted on a free server; please host it on your own server for production use.
+
+## Features
+
+- **Runtime**: Powered by [Bun](https://bun.sh/) for high performance.
+- **Framework**: Built with [Hono.js](https://hono.dev/).
+- **Language**: Fully written in TypeScript.
+- **Rate Limiting**: 10 requests per 15 minutes per IP.
+- **Caching**: Responses are cached for 24 hours (when deployed on supported runtimes).
 
 ## Endpoints
 
 For more detailed documentation, check the [docs](https://documenter.getpostman.com/view/21591099/2s93CUHVaw).
-
-- All responses are cached for 24hrs
 
 ### `/api/rankings/:region`
 
@@ -144,9 +150,15 @@ For more detailed documentation, check the [docs](https://documenter.getpostman.
 
 ### Prerequisites
 
-- [nodejs](https://nodejs.org/en/)
+- [Bun](https://bun.sh/)
 
 1. Clone the repository
-1. Run `yarn install`
-1. Run `yarn build` on the root directory
-1. Run `npm dev`
+2. Run `bun install`
+3. Run `bun dev` (runs with hot-reload on port 3000)
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+```env
+PORT=3000
+```

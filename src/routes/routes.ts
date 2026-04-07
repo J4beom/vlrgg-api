@@ -1,4 +1,4 @@
-import express from "express";
+import { Hono } from "hono";
 import {
   getEvent,
   getEvents,
@@ -9,7 +9,7 @@ import {
   getUpcomingMatches,
 } from "../controllers/controller.js";
 
-const router = express.Router();
+const router = new Hono();
 
 // Get Team Rankings
 router.get("/rankings/:region", getRankings);

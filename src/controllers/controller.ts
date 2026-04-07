@@ -1,4 +1,4 @@
-import { Response, Request } from "express";
+import { Context } from "hono";
 import {
   scrapeEvent,
   scrapeEvents,
@@ -7,70 +7,63 @@ import {
   scrapePlayers,
   scrapeTeams,
   scrapeUpcomingMatches,
-} from "../vlr-scraper.js";
+} from "../services/scraper.js";
 
 // @desc   GET rankings
 // @route  GET /api/rankings/:region
 // @access Public
-const getRankings = async (req: Request, res: Response) => {
-  const rankings = await scrapeTeams(req.params.region);
-  res.status(200).json(rankings);
+export const getRankings = async (c: Context) => {
+  const region = c.req.param("region");
+  const rankings = await scrapeTeams(region);
+  return c.json(rankings, 200);
 };
 
 // @desc   GET players
 // @route  GET /api/players
 // @access Public
-const getPlayers = async (req: Request, res: Response) => {
+export const getPlayers = async (c: Context) => {
   const players = await scrapePlayers();
-  res.status(200).json(players);
+  return c.json(players, 200);
 };
 
 // @desc   GET events
 // @route  GET /api/events
 // @access Public
-const getEvents = async (req: Request, res: Response) => {
+export const getEvents = async (c: Context) => {
   const events = await scrapeEvents();
-  res.status(200).json(events);
+  return c.json(events, 200);
 };
 
 // @desc   GET event
 // @route  GET /api/events/:url
 // @access Public
-const getEvent = async (req: Request, res: Response) => {
-  const event = await scrapeEvent(req.params.url);
-  res.status(200).json(event);
+export const getEvent = async (c: Context) => {
+  const url = c.req.param("url");
+  const event = await scrapeEvent(url);
+  return c.json(event, 200);
 };
 
 // @desc   GET upcoming matches
 // @route  GET /api/matches/upcoming
 // @access Public
-const getUpcomingMatches = async (req: Request, res: Response) => {
+export const getUpcomingMatches = async (c: Context) => {
   const upcomingMatches = await scrapeUpcomingMatches();
-  res.status(200).json(upcomingMatches);
+  return c.json(upcomingMatches, 200);
 };
 
 // @desc   GET match results
 // @route  GET /api/matches/results
 // @access Public
-const getMatchResults = async (req: Request, res: Response) => {
-  const upcomingMatches = await scrapeMatchResults();
-  res.status(200).json(upcomingMatches);
+export const getMatchResults = async (c: Context) => {
+  const matchResults = await scrapeMatchResults();
+  return c.json(matchResults, 200);
 };
 
 // @desc   GET match
 // @route  GET /api/matches/:url
 // @access Public
-const getMatch = async (req: Request, res: Response) => {
-  const match = await scrapeMatch(req.params.url);
-  res.status(200).json(match);
-};
-
-export {
-  getRankings,
-  getPlayers,
-  getEvents,
-  getEvent,
-  getUpcomingMatches,
-  getMatchResults,
-  getMatch,
+export const getMatch = async (c: Context) => {
+  const url = c.req.param("url");
+  const match = await scrapeMatch(url);
+  return c.json(match, 200);
 };
