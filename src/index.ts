@@ -12,7 +12,7 @@ const app = new Hono();
 // Rate limiter: 100 requests per 15 minutes per IP
 const limiter = rateLimiter({
   windowMs: 15 * 60 * 1000,
-  limit: 10,
+  limit: 100,
   standardHeaders: "draft-6",
   keyGenerator: (c) => {
     // Generate key using IP, fallback to user agent + IP or a generic string
