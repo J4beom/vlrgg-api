@@ -14,7 +14,7 @@ import {
 // @access Public
 export const getRankings = async (c: Context) => {
   const region = c.req.param("region");
-  const rankings = await scrapeTeams(region);
+  const rankings = await scrapeTeams(region!);
   return c.json(rankings, 200);
 };
 
@@ -39,7 +39,7 @@ export const getEvents = async (c: Context) => {
 // @access Public
 export const getEvent = async (c: Context) => {
   const url = c.req.param("url");
-  const event = await scrapeEvent(url);
+  const event = await scrapeEvent(url!);
   return c.json(event, 200);
 };
 
@@ -64,6 +64,6 @@ export const getMatchResults = async (c: Context) => {
 // @access Public
 export const getMatch = async (c: Context) => {
   const url = c.req.param("url");
-  const match = await scrapeMatch(url);
+  const match = await scrapeMatch(url!);
   return c.json(match, 200);
 };
